@@ -8,5 +8,5 @@ var request = new CreateGatewayRequest
 
 var gatewayFactory = new GatewayFactory(instance:"set-your-instance-name-here", apiKey:"set_your_api_key_here");
 
-var gatewayResponse = gatewayFactory.CreateGateway(request);
+var gatewayResponse = await gatewayFactory.CreateGatewayAsync(request);
 Console.WriteLine(gatewayResponse);

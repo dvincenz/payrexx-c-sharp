@@ -5,7 +5,7 @@ namespace Demo;
 
 public class GatewayFactory(string instance, string apiKey)
 {
-    public string CreateGateway(CreateGatewayRequest gatewayRequest)
+    public async Task<string> CreateGatewayAsync(CreateGatewayRequest gatewayRequest)
     {
         var requestUri = new Uri("https://api.payrexx.com/v1.0/Gateway/?instance=" + instance);
 
@@ -19,7 +19,7 @@ public class GatewayFactory(string instance, string apiKey)
         using var client = new HttpClient();
         client.DefaultRequestHeaders.Add("X-API-KEY", apiKey);
         var content = new StringContent(payload, System.Text.Encoding.UTF8, "application/json");
-        var response = client.PostAsync(requestUri, content).Result;
+        var response = await client.PostAsync(requestUri, content);
 
         if (response.IsSuccessStatusCode)
         {
