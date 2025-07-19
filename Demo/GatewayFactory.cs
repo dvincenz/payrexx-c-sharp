@@ -23,7 +23,7 @@ public class GatewayFactory(string instance, string apiKey)
 
         if (response.IsSuccessStatusCode)
         {
-            var responseContent = response.Content.ReadAsStringAsync().Result;
+            var responseContent = await response.Content.ReadAsStringAsync();
             var payrexxResponseGateway =
                 JsonSerializer.Deserialize<CreateGatewayResponse>( responseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true } );
             if (payrexxResponseGateway?.Status == "success")
