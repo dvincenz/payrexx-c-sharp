@@ -28,10 +28,10 @@ public class GatewayFactory(string instance, string apiKey)
                 JsonSerializer.Deserialize<CreateGatewayResponse>( responseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true } );
             if (payrexxResponseGateway?.Status == "success")
                 return payrexxResponseGateway.Data.FirstOrDefault()?.Link ??
-                       throw new Exception("Failed to retrieve gateway link from response.");
+                       throw new InvalidOperationException("Failed to retrieve gateway link from response.");
         }
 
-        throw new Exception("Failed to create gateway: " + response.ReasonPhrase);
+        throw new HttpRequestException($"Failed to create gateway. HTTP Status: {(int)response.StatusCode} {response.ReasonPhrase}");
     }
 
 }
